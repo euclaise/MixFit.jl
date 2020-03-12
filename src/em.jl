@@ -59,16 +59,17 @@ end
             silent::Bool = false,
             kernel::Function = dnorm)
 
-Get the maximum likelihood estimate of an `m`-component mixture model using random-swap EM.
-Random-swap EM avoids local optimums by randomly replacing components and
-using the result with the maximum likelihood [^1].  The component distributions
-are given by `kernel`.  The maximum number of swaps is given by `maxswap`.
-If results vary across runs, then `maxswap` is too low - the default is ``5m^2``.
-maxiter_inner is the maximum number of iterations for the estimates that go through
-the swapping process, and maxiter is the maximum for the final estimate.  Similarly,
-`rtol` is for the final estimate, while the inner estimates use 0.1.  To supress output,
-simply set `silent` to true.  Starting values can be provided via the α, μ, and σ
-arguments, but this shouldn't be necassary due to the use of random swapping.
+Get the maximum likelihood estimate of an `m`-component mixture model
+using random-swap EM.  Random-swap EM avoids local optimums by randomly
+replacing components and using the result with the maximum likelihood [^1].
+The component distributions are given by `kernel`.  The maximum number of swaps
+is given by `maxswap`.  If results vary across runs, then `maxswap` is too low -
+the default is ``5m^2``.  maxiter_inner is the maximum number of iterations for
+the estimates that go through the swapping process, and maxiter is the maximum
+for the final estimate.  Similarly, `rtol` is for the final estimate, while the
+inner estimates use 0.1.  To supress output, simply set `silent` to true.
+Starting values can be provided via the α, μ, and σ arguments, but this
+shouldn't be necassary due to the use of random swapping.
 
 [^1]: Zhao, Q., Hautamäki, V., Kärkkäinen, I., & Fränti, P. (2012). Random swap EM algorithm for Gaussian mixture models. Pattern Recognition Letters, 33(16), 2120-2126.
 
@@ -135,8 +136,12 @@ end
 
 Estimate the density of `x` by a mixture model.  Successive mixture model estimates
 are done via random swap EM with increasing number of clusters until `criterion`
-decreases for 3 iterations.  The relative tolerance for EM convergence is given
-by `rtol_em`.  To disable output, set `silent` to true.
+decreases for 3 iterations.  By default, `criterion` uses AIC, which performs
+well for density estimation [^1].  However, AIC2 should be used instead if one
+wants to actually estimate the number of clusters in a true mixture model.
+The relative tolerance for EM convergence is given by `rtol_em`.  To disable output, set `silent` to true.
+
+[^1]: Wang, Y., & Chee, C. S. (2012). Density estimation using non-parametric and semi-parametric mixtures. Statistical Modelling, 12(1), 67-92.
 
 See also: [`densfit`](@densfit), [`em_run!`](@em_run!)
 """
