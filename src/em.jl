@@ -5,7 +5,7 @@ export em_step!, em_run!, mixfit, densfit
 
 Run a single EM step.
 
-See also: [`em_run!`](@em_run!), [`mixfit`](@mixfit)
+See also: [`em_run!`](@ref), [`mixfit`](@ref)
 """
 function em_step!(est::MixModel, x::Vector{<:Real})
     p = Matrix{Float32}(undef, length(est.μ), length(x))
@@ -26,7 +26,7 @@ end
 Run EM steps until the percent increase in log-likelihood is below `rtol` or the number of iterations is greater than `maxiter`.
 If `maxiter` is set to zero, EM steps will continue until the increase is below `rtol` regardless of the number of iterations.
 
-See also: [`em_run!`](@em_run!), [`mixfit`](@mixfit)
+See also: [`em_run!`](@ref), [`mixfit`](@ref)
 """
 function em_run!(est::MixModel, x::Vector{<:Real}, rtol::AbstractFloat = 0.00001, maxiter::Int = 0)
     ll::Float32 = LL(x, est)
@@ -73,7 +73,7 @@ shouldn't be necassary due to the use of random swapping.
 
 [^1]: Zhao, Q., Hautamäki, V., Kärkkäinen, I., & Fränti, P. (2012). Random swap EM algorithm for Gaussian mixture models. Pattern Recognition Letters, 33(16), 2120-2126.
 
-See also: [`densfit`](@densfit), [`em_run!`](@em_run!)
+See also: [`densfit`](@ref), [`em_run!`](@ref)
 """
 function mixfit(x::Vector{<:Real},
                 m::Int;
@@ -137,15 +137,14 @@ end
 Estimate the density of `x` by a mixture model.  Successive mixture model estimates
 are done via random swap EM with increasing number of clusters until `criterion`
 decreases for 3 iterations.  By default, `criterion` uses AIC, which performs
-well for density estimation [^1].  However, AIC2 should be used instead if one
+well for density estimation [^2].  However, AIC2 should be used instead if one
 wants to actually estimate the number of clusters in a true mixture model.
 The relative tolerance for EM convergence is given by `rtol_em`.  To disable output, set `silent` to true.
 
-[^1]: Wang, Y., & Chee, C. S. (2012). Density estimation using non-parametric and semi-parametric mixtures. Statistical Modelling, 12(1), 67-92.
+[^2]: Wang, Y., & Chee, C. S. (2012). Density estimation using non-parametric and semi-parametric mixtures. Statistical Modelling, 12(1), 67-92.
 
-See also: [`densfit`](@densfit), [`em_run!`](@em_run!)
+See also: [`densfit`](@ref), [`em_run!`](@ref)
 """
-
 function densfit(x::Vector{<:Real};
                 wait::Int = 3,
                 rtol_em::AbstractFloat = 0.00001,
