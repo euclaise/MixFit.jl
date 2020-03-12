@@ -33,7 +33,7 @@ LL(x::Vector{<:Real}, est::MixModel) = sum(
 
 Get the AIC of a mixture model, using the data `x`.
 The AIC for a model ``M`` is given by:
-`` AIC(M) =  2*k - 2l(M)``
+`` AIC(M) =  2k - 2l(M)``
 Where ``k`` is the number of parameters and ``l(M)`` is the log-likelihood.
 
 See also: [`AIC3`](@ref), [`BIC`](@ref), [`LL`](@ref)
