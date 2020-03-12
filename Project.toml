@@ -1,0 +1,7 @@
+name = "MixFit"
+uuid = "93b76a03-7250-4dc4-8ed3-ac920c1aa6e5"
+authors = ["Joshua Pritsker <joshpritsker@protonmail.com>"]
+version = "0.1.0"
+
+[deps]
+Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
